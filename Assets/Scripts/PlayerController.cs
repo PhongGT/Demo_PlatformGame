@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -21,6 +22,11 @@ public class PlayerController : Character
     [SerializeField] private bool isJumping;
     [SerializeField] private bool isDead;
 
+    [Header("Kunai")]
+    [SerializeField] protected GameObject kunaiPrefab;
+    [SerializeField] protected GameObject throwPoint;
+    [SerializeField] protected GameObject[] kunaiPoooling;
+    
     // Start is called before the first frame update
     private void Awake()
     {
@@ -42,7 +48,28 @@ public class PlayerController : Character
         dir = Input.GetAxisRaw("Horizontal");  
         Jump();
         Move();
+        Throw();
         
+    }
+
+    private void Throw()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            GetKunai();
+        }
+    }
+
+    private void GetKunai()
+    {
+        GameObject obj = ObjPool.instance.GetPooledObj();
+        if (obj != null)
+        {
+            obj.transform.position = throwPoint.transform.position;
+            obj.transform.rotation = throwPoint.transform.rotation;
+            obj.GetComponent<Kunai>().Despawn();
+            obj.SetActive(true);
+        }
     }
 
     public void Move()

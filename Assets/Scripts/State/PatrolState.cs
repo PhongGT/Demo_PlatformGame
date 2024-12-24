@@ -20,20 +20,33 @@ public class PatrolState : IState
     {   timer += Time.deltaTime;
         if (enemy.Target != null)
         {
-            enemy.ChangDir(enemy.Target.transform.position.x>enemy.transform.position.x);
+            enemy.ChangDir(enemy.Target.transform.position.x > enemy.transform.position.x);
+            if (enemy.IsInRange())
+            {
+                enemy.ChangeState(new AttackState());
+            }
+            else
+            {
+                enemy.MovingTo();
+            }
         }
+        else
+        {
 
-        if(timer < randomTime)
-        {
-            enemy.MovingTo();
-        }else
-        {
-            enemy.ChangeState(new IdleState());
-        }
-        if (timer > randomTime / 2 && enemy.Target == null)
-        {
+
+            if (timer < randomTime)
+            {
+                enemy.MovingTo();
+            }
+            else
+            {
+                enemy.ChangeState(new IdleState());
+            }
+            if (timer > randomTime / 2 && enemy.Target == null)
+            {
                 enemy.transform.rotation = Quaternion.Euler(new Vector3(0, dir ? 0 : 180, 0));
-            dir = false;
+                dir = false;
+            }
         }
 
         

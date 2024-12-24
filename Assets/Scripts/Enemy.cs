@@ -26,6 +26,7 @@ public class Enemy : Character
     void Update()
     {
         if (currentState != null) {
+
             currentState.OnExecute(this);
         }
     }
@@ -83,8 +84,8 @@ public class Enemy : Character
 
     public bool IsInRange()
     {
-        if(target != null) 
-            return Vector2.Distance(target.transform.position, this.transform.position) <= attackRange;
+        if(target != null && Vector2.Distance(target.transform.position, this.transform.position) <= attackRange) 
+            return true;
         else
         {
             return false;
@@ -94,7 +95,7 @@ public class Enemy : Character
 
     public void Attack()
     {
-
+        ChangeAnimation("Attack");
     }
     public bool CheckInRange()
     {
