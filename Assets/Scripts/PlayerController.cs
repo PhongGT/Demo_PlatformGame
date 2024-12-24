@@ -19,7 +19,8 @@ public class PlayerController : Character
     [SerializeField] private bool isIdle;
     [SerializeField] private float dir;
     [SerializeField] private bool isJumping;
- 
+    [SerializeField] private bool isDead;
+
     // Start is called before the first frame update
     private void Awake()
     {
