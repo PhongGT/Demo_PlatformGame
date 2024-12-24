@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected string curAnimation;
     
     private float hp;
-    private float maxHp;
+    private float maxHp =100f;
 
     
 

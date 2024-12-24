@@ -4,14 +4,27 @@ using UnityEngine;
 
 public class AttackState : IState
 {
+    float timer;
+    
     public void onEnter(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Attack");
+        if (enemy != null)
+        {
+            enemy.ChangDir(enemy.Target.transform.position.x > enemy.transform.position.x);
+            enemy.Stop();
+            enemy.Attack();
+            timer = 0;
+        }
     }
 
     public void OnExecute(Enemy enemy)
     {
-        throw new System.NotImplementedException();
+        timer += Time.deltaTime;
+        if (timer > 1f)
+        {
+            enemy.ChangeState(new PatrolState());
+        }
     }
 
     public void OnExit(Enemy enemy)
