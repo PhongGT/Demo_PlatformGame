@@ -1,0 +1,4 @@
+repository "CloneGame@PhongGT@cloud"
+  path "/"
+    br "/main"
+    co "/main"
